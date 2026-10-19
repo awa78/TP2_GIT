@@ -1,5 +1,6 @@
 param(
-    [string]$Source = (Join-Path $PSScriptRoot "donnees")
+    [string]$Source = (Join-Path $PSScriptRoot "donnees"),
+    [switch]$Compression
 )
 $ErrorActionPreference = "Stop"
 $Destination = "\\NAS01\Backup"
@@ -15,3 +16,7 @@ $Cible = Join-Path $Destination $NomSauvegarde
 New-Item -ItemType Directory -Path $Cible -Force | Out-Null
 Get-ChildItem -LiteralPath $Source -Force | Copy-Item -Destination $Cible -Recurse -Force
 Add-Content -LiteralPath $Journal -Value "$(Get-Date -Format o) FIN cible=$Cible"
+if ($Compression) {
+    Compress-Archive -LiteralPath $Cible -DestinationPath "$Cible.zip" -Force
+    Add-Content -LiteralPath $Journal -Value "$(Get-Date -Format o) ARCHIVE $Cible.zip"
+}
