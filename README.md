@@ -9,3 +9,5 @@ Script de sauvegarde avec journalisation, paramètres et compression.
 ```
 
 Le dossier source doit exister. Le compte doit pouvoir écrire dans la destination.
+
+Ajouter `-Compression` pour créer également une archive ZIP.
