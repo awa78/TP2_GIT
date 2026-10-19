@@ -25,7 +25,7 @@ if ($Compression) {
 $DateLimite = (Get-Date).AddDays(-30)
 Get-ChildItem -LiteralPath $Destination -Force |
     Where-Object {
-        $_.Name -like "sauvegarde_*" -and
+        $_.Name -match '^sauvegarde-\d{8}-\d{6}-\d{3}(\.zip)?$' -and
         $_.LastWriteTime -lt $DateLimite
     } |
     Remove-Item -Recurse -Force
