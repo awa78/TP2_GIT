@@ -12,3 +12,4 @@ $NomSauvegarde = "sauvegarde-" + (Get-Date -Format "yyyyMMdd-HHmmss-fff")
 $Cible = Join-Path $Destination $NomSauvegarde
 New-Item -ItemType Directory -Path $Cible -Force | Out-Null
 Get-ChildItem -LiteralPath $Source -Force | Copy-Item -Destination $Cible -Recurse -Force
+Add-Content -LiteralPath $Journal -Value "$(Get-Date -Format o) FIN cible=$Cible"
