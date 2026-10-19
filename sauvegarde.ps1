@@ -20,3 +20,12 @@ if ($Compression) {
     Compress-Archive -LiteralPath $Cible -DestinationPath "$Cible.zip" -Force
     Add-Content -LiteralPath $Journal -Value "$(Get-Date -Format o) ARCHIVE $Cible.zip"
 }
+
+# Supprime les sauvegardes de plus de 30 jours
+$DateLimite = (Get-Date).AddDays(-30)
+Get-ChildItem -LiteralPath $Destination -Force |
+    Where-Object {
+        $_.Name -like "sauvegarde_*" -and
+        $_.LastWriteTime -lt $DateLimite
+    } |
+    Remove-Item -Recurse -Force
