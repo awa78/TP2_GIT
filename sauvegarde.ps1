@@ -1,0 +1,10 @@
+$ErrorActionPreference = "Stop"
+$Source = Join-Path $PSScriptRoot "donnees"
+$Destination = "D:\Backup"
+if (-not (Test-Path -LiteralPath $Source -PathType Container)) {
+    throw "Le dossier source est introuvable : $Source"
+}
+$NomSauvegarde = "sauvegarde-" + (Get-Date -Format "yyyyMMdd-HHmmss-fff")
+$Cible = Join-Path $Destination $NomSauvegarde
+New-Item -ItemType Directory -Path $Cible -Force | Out-Null
+Get-ChildItem -LiteralPath $Source -Force | Copy-Item -Destination $Cible -Recurse -Force
