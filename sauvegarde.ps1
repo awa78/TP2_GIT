@@ -2,7 +2,7 @@ param(
     [string]$Source = (Join-Path $PSScriptRoot "donnees")
 )
 $ErrorActionPreference = "Stop"
-$Destination = "D:\Backup"
+$Destination = "E:\Backup"
 if (-not (Test-Path -LiteralPath $Source -PathType Container)) {
     throw "Le dossier source est introuvable : $Source"
 }
